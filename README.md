@@ -10,3 +10,8 @@ This is a project to help you manage your zip files. You can upload them and eit
 4. Create a super user ```python zipfiles_listing/manage.py createsuperuser```
 5. Create staticfiles ```python zipfiles_listing/manage.py collectstatic```
 6. Run ```python zipfiles_listing/manage.py runserver```
+
+#### Testing.
+
+There are only a few tests, to run them:
+1. ```python zipfiles_listing/manage.py test zipfiles_listing/applications```
