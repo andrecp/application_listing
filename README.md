@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/andrecp/application_listing.svg?branch=master)](https://travis-ci.org/andrecp/application_listing)
+
 #### zipfile-listing
 
 This is a project to help you manage your zip files. You can upload them and either keep them private or public to share with your friends.
