@@ -113,13 +113,20 @@ class ApplicationsView(View):
         return render(request, self.template_name, data)
 
     def post(self, request, *args, **kwargs):
-        if not request.user.is_authenticated():
+
+        # Unpack.
+        user = request.user
+
+        # Check if the user is authenticated.
+        if not user.is_authenticated():
             return HttpResponseForbidden('You must be authenticated to create an application')
+
+        # Validate the form.
         form = self.form_class(request.POST, request.FILES)
         if form.is_valid():
             # Save the object.
             application = form.save(commit=False)
-            application.user = request.user
+            application.user = user
             application.save()
             uid = application.id
             return redirect(reverse('applications:application', args=[uid]))
