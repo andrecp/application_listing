@@ -1,0 +1,21 @@
+{% extends "client/base.html" %}
+
+{% block content %}
+
+<section>
+    <h3>Application</h3>
+    <ul>
+        <li>Username: {{ app.user }}</li>
+        <li>URL: <a href="{{ app.url }}">{{ request.get_host }}{{ app.url }}</a></li>
+        <li>Zipfile: <a href="/media/{{ app.file_path }}">{{ request.get_host }}/media/{{ app.file_path }}</a></li>
+        <li>Description: {{ app.description }}</li>
+        <li>Is private: {{ app.is_private }}</li>
+        <li>Created: {{ app.created }}</li>
+        <li>Modified: {{ app.modified }}</li>
+        </br>
+    </ul>
+    </br>
+    <a href="{{ app.url }}/edit">Edit this application</a>
+</section>
+
+{% endblock %}

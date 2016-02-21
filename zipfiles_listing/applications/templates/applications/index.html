@@ -1,0 +1,65 @@
+{% extends "client/base.html" %}
+
+{% block content %}
+    <main class="mdl-layout__content">
+    <section class="mdl-layout__tab-panel is-active" id="upload-zipfile">
+      <div class="page-content">
+        {% if not user.is_authenticated %}
+            <p>First <a href="{% url 'users:login' %}">login</a> to upload a zip file</p>
+        {% else %}
+            <h1>Upload a new file</h1>
+            <form method="post" enctype="multipart/form-data" action="{% url 'applications:list' %}">
+                {% csrf_token %}
+                {{ form }}
+                <input type="submit" class="btn btn-default" value="Send" />
+            </form>
+        {% endif %}
+      </div>
+    </section>
+    <section class="mdl-layout__tab-panel" id="public-zipfiles">
+      <div class="page-content">
+            <h1>Public zip files</h1>
+            <ul>
+                {% for app in public_applications %}
+                    <li>Username: {{ app.user }}</li>
+                    <li>URL: <a href="{{ app.url }}">{{ request.get_host }}{{ app.url }}</a></li>
+                    <li>Zipfile: <a href="/media/{{ app.file_path }}">{{ request.get_host }}/media/{{ app.file_path }}</a></li>
+                    <li>Description: {{ app.description }}</li>
+                    <li>Is private: {{ app.is_private }}</li>
+                    <li>Created: {{ app.created }}</li>
+                    <li>Modified: {{ app.modified }}</li>
+                    </br>
+                {% empty %}
+                    <li>No public zipfiles yet.</li>
+                {% endfor %}
+            </ul>
+      </div>
+    </section>
+    <section class="mdl-layout__tab-panel" id="private-zipfiles">
+      <div class="page-content">
+        {% if not user.is_authenticated %}
+            <p>First <a href="{% url 'users:login' %}">login</a> to view your private applications</p>
+        {% else %}
+            <h1>Your zip files</h1>
+            <ul>
+                {% for app in private_applications %}
+                    <li>Username: {{ app.user }}</li>
+                    <li>URL: <a href="{{ app.url }}">{{ request.get_host }}{{ app.url }}</a></li>
+                    <li>Zipfile: <a href="/media/{{ app.file_path }}">{{ request.get_host }}/media/{{ app.file_path }}</a></li>
+                    <li>Description: {{ app.description }}</li>
+                    <li>Is private: {{ app.is_private }}</li>
+                    <li>Created: {{ app.created }}</li>
+                    <li>Modified: {{ app.modified }}</li>
+                    </br>
+                {% empty %}
+                    <li>You don't have zipfiles yet.</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+      </div>
+    </section>
+  </main>
+
+
+
+{% endblock %}

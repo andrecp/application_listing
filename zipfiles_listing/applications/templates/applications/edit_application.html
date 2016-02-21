@@ -1,0 +1,15 @@
+{% extends "client/base.html" %}
+
+{% block content %}
+
+<section>
+    <h3>Application</h3>
+    <form method="post" enctype="multipart/form-data" action="{% url 'applications:application' uid %}">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" class="btn btn-default" value="Send" />
+    </form>
+    </br>
+</section>
+
+{% endblock %}
