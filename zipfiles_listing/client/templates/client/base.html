@@ -1,0 +1,51 @@
+{% block base %}
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Zipfiles">
+        <meta name="author" content="Andre">
+
+        <title>Zipfiles Listing</title>
+
+        <!-- Custom CSS -->
+        <link href="{% static 'client/mdl/material.min.css' %}" rel="stylesheet">
+        <link href="{% static 'client/application.css' %}" rel="stylesheet">
+        <!-- Custom JS -->
+        <script src="{% static 'client/mdl/material.min.js' %}"></script>
+
+
+    </head>
+
+    <body>
+        <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header
+            mdl-layout--fixed-tabs">
+            <header class="mdl-layout__header">
+                <div class="mdl-layout__header-row">
+                  {% if not user.is_authenticated %}
+                        <span class="mdl-layout-title"><a href="{% url 'users:login' %}">Log In</a></span>
+                    {% else %}
+                        <p class="mdl-layout-title">Hello {{ user.username }} &nbsp;</p>
+                        <br>
+                        <p class="mdl-layout-title"><a href="{% url 'users:logout' %}">Log out</a></p>
+
+                    {% endif %}
+                </div>
+                <!-- Tabs -->
+                <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
+                  <a href="/#upload-zipfile" class="mdl-layout__tab is-active">Upload a zipfile</a>
+                  <a href="/#public-zipfiles" class="mdl-layout__tab">Public zipfiles</a>
+                  <a href="/#private-zipfiles" class="mdl-layout__tab">Private zipfiles</a>
+                </div>
+            </header>
+
+        {% block content %}
+        {% endblock %}
+    </body>
+
+</html>
+{% endblock %}
